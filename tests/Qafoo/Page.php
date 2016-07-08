@@ -22,10 +22,6 @@ abstract class Page
 
     protected function visitPath($path)
     {
-        if (!$this->session) {
-            $this->start();
-        }
-
         $domain = getenv('SERVER') ?: 'http://localhost:8888';
         $this->session->visit($domain . $path);
         return $this->document = $this->session->getPage();
