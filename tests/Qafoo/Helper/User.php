@@ -2,6 +2,8 @@
 
 namespace Qafoo\Helper;
 
+use Qafoo\Page;
+
 trait User
 {
     public function logIn()
@@ -13,6 +15,6 @@ trait User
         $page->setPassword(getenv('PASSWORD'));
         $newPage = $page->login();
 
-        $this->assertInstanceOf($newPage, Page\Dashboard::class);
+        $this->assertInstanceOf(Page\Dashboard::class, $newPage);
     }
 }

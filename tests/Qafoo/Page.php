@@ -31,11 +31,22 @@ abstract class Page
         return $this->document = $this->session->getPage();
     }
 
-    protected function find($cssSelector)
+    protected function find($cssSelector, $contextElement = null)
     {
-        $element = $this->document->find('css', $cssSelector);
+        $contextElement = $contextElement ?: $this->document;
+
+        $element = $contextElement->find('css', $cssSelector);
         \PHPUnit_FrameWork_Assert::assertNotNull($element, "Element $cssSelector not found");
         return $element;
+    }
+
+    protected function findAll($cssSelector, $contextElement = null)
+    {
+        $contextElement = $contextElement ?: $this->document;
+
+        $elements = $contextElement->findAll('css', $cssSelector);
+        \PHPUnit_FrameWork_Assert::assertNotEmpty($elements, "$cssSelector did not find any elements");
+        return $elements;
     }
 
     protected function createFromDocument()
