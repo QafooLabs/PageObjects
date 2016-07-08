@@ -11,20 +11,27 @@ abstract class Page
     protected $document;
 
     private $pageRegistry = array(
-        '/login' => Page\Login::class,
-        '/dashboard' => Page\Dashboard::class,
+        Page\Login::PATH => Page\Login::class,
+        Page\Dashboard::PATH => Page\Dashboard::class,
     );
 
     public function __construct(Session $session)
     {
         $this->session = $session;
+        $this->document = $this->session->getPage();
     }
 
     protected function visitPath($path)
     {
         $domain = getenv('SERVER') ?: 'http://localhost:8888';
         $this->session->visit($domain . $path);
-        return $this->document = $this->session->getPage();
+        return $this->session->getPage();
+    }
+
+    public function visit($path)
+    {
+        $this->visitPath($path);
+        return $this->createFromDocument();
     }
 
     protected function find($cssSelector, $contextElement = null)
@@ -48,11 +55,11 @@ abstract class Page
     protected function createFromDocument()
     {
         $this->document = $this->session->getPage();
+
         $path = parse_url($this->session->getCurrentUrl(), PHP_URL_PATH);
         \PHPUnit_FrameWork_Assert::assertArrayHasKey($path, $this->pageRegistry);
+
         $pageClass = $this->pageRegistry[$path];
         return new $pageClass($this->session);
     }
-
-    abstract public function visit();
 }

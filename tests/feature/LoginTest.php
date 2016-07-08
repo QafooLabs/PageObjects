@@ -6,8 +6,7 @@ class LoginTest extends FeatureTest
 {
     public function testLogInWithWrongPassword()
     {
-        $page = new Page\Login($this->session);
-        $page->visit();
+        $page = (new Page\Login($this->session))->visit(Page\Login::PATH);
 
         $page->setUser(getenv('USER'));
         $page->setPassword('wrongPassword');
@@ -18,8 +17,7 @@ class LoginTest extends FeatureTest
 
     public function testSuccessfulLogIn()
     {
-        $page = new Page\Login($this->session);
-        $page->visit();
+        $page = (new Page\Login($this->session))->visit(Page\Login::PATH);
 
         $page->setUser(getenv('USER'));
         $page->setPassword(getenv('PASSWORD'));

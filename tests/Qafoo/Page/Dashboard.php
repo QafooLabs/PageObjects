@@ -6,10 +6,7 @@ use Qafoo\Page;
 
 class Dashboard extends Page
 {
-    public function visit()
-    {
-        $this->visitPath('/dashboard');
-    }
+    const PATH = '/dashboard';
 
     public function getOrganizations()
     {

@@ -8,8 +8,7 @@ trait User
 {
     public function logIn()
     {
-        $page = new Page\Login($this->session);
-        $page->visit();
+        $page = (new Page\Login($this->session))->visit(Page\Login::PATH);
 
         $page->setUser(getenv('USER'));
         $page->setPassword(getenv('PASSWORD'));

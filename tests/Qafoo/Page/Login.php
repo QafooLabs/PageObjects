@@ -6,10 +6,7 @@ use Qafoo\Page;
 
 class Login extends Page
 {
-    public function visit()
-    {
-        $this->visitPath('/login');
-    }
+    const PATH = '/login';
 
     public function setUser($user)
     {
