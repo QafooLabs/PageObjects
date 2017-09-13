@@ -10,9 +10,11 @@ class Dashboard extends Page
 
     public function getOrganizations()
     {
-        $dataElement = $this->find('[data-dashboard]');
-        $dataUrl = $dataElement->getAttribute('data-dashboard');
+        $dataElement = $this->find('[data-app]');
+        $data = json_decode($dataElement->getAttribute('data-app'), true);
+        \PHPUnit_FrameWork_Assert::assertNotNull($data, "Failed to parse JSON app data");
 
+        $dataUrl = $data['routes']['XhprofOrganizationBundle.Organization.dashboardData'];
         $data = json_decode($this->visitPath($dataUrl)->getContent());
         \PHPUnit_FrameWork_Assert::assertNotNull($data, "Failed to parse JSON response");
 

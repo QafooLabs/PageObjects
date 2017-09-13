@@ -37,7 +37,7 @@ class DashboardTest extends FeatureTest
      */
     public function testHasDemoApplications(Page\Dashboard\Organization $organization)
     {
-        $this->assertCount(3, $organization->getApplications());
+        $this->assertCount(5, $organization->getApplications());
     }
 
     /**
